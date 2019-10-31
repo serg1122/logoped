@@ -1,5 +1,7 @@
 package logoped
 
+import "encoding/json"
+
 type ILogLevel interface {
 	Name() string
 	Weight() int
@@ -25,4 +27,9 @@ func (ll LogLevel) Name() string {
 
 func (ll LogLevel) Weight() int {
 	return ll.weight
+}
+
+func (ll LogLevel) MarshalJSON() ([]byte, error) {
+
+	return json.Marshal(ll.name)
 }

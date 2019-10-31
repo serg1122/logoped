@@ -16,20 +16,15 @@ func CreateLogoped(logLevel ILogLevel) *Logoped {
 	}
 }
 
-func (l Logoped) CreateMessage(bytes []byte) *Report {
+// func (l Logoped) CreateMessage(bytes []byte) *Report {
+// 	//...
+// }
 
-	sysInfo := CreateSysInfo()
-	contextInfo := CreateContextInfo()
-	messageInfo := CreateMessageInfo(l.logLevel)
-	postmessage := CreatePostMessage()
+// func (l Logoped) Info(bytes []byte) {
 
-}
+// 	if l.logLevel.Weight() < LogLevelInfo.Weight() {
+// 		return
+// 	}
 
-func (l Logoped) Info(bytes []byte) {
-
-	if l.logLevel.Weight() < LogLevelInfo.Weight() {
-		return
-	}
-
-	l.CreateMessage(bytes)
-}
+// 	l.CreateMessage(bytes)
+// }

@@ -1,6 +1,7 @@
 package logoped
 
 import (
+	"encoding/json"
 	"math/rand"
 	"testing"
 	"time"
@@ -34,4 +35,23 @@ func Test_Weight(t *testing.T) {
 	level := CreateLogLevel(`qwe`, weight)
 
 	assert.Equal(t, weight, level.Weight())
+}
+
+func Test_MarshalJSON(t *testing.T) {
+
+	levels := []ILogLevel{
+		LogLevelInfo,
+		LogLevelWarn,
+		LogLevelError,
+		LogLevelFatal,
+	}
+	for _, level := range levels {
+		bytesGot, errGot := json.Marshal(level)
+		assert.Nil(t, errGot)
+
+		bytesExpected, errExpexted := json.Marshal(level.Name())
+		assert.Nil(t, errExpexted)
+
+		assert.Equal(t, bytesExpected, bytesGot)
+	}
 }
