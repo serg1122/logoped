@@ -9,7 +9,7 @@ type IReport interface {
 	GetPostMessage() []byte
 }
 
-type Report struct {
+type DefaultReport struct {
 	IReport
 
 	header      IHeader
@@ -17,26 +17,26 @@ type Report struct {
 	postmessage []byte
 }
 
-func CreateReport(header IHeader, message []byte, postmessage []byte) *Report {
+func CreateDefaultReport(header IHeader, message []byte, postmessage []byte) *DefaultReport {
 
-	return &Report{
+	return &DefaultReport{
 		header:      header,
 		message:     message,
 		postmessage: postmessage,
 	}
 }
 
-func (report Report) GetHeader() IHeader {
+func (report DefaultReport) GetHeader() IHeader {
 
 	return report.header
 }
 
-func (report Report) GetMessage() []byte {
+func (report DefaultReport) GetMessage() []byte {
 
 	return report.message
 }
 
-func (report Report) GetPostMessage() []byte {
+func (report DefaultReport) GetPostMessage() []byte {
 
 	return report.postmessage
 }

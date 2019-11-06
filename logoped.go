@@ -1,30 +1,34 @@
 package logoped
 
+// TODO: remove the block from here nax
 var LogLevelInfo = CreateLogLevel("INFO", 100)
 var LogLevelWarn = CreateLogLevel("WARN", 200)
 var LogLevelError = CreateLogLevel("ERROR", 300)
 var LogLevelFatal = CreateLogLevel("FATAL", 400)
 
 type Logoped struct {
-	logLevel ILogLevel
+	dispatcher IDispatcher
+	logLevel   ILogLevel
 }
 
-func CreateLogoped(logLevel ILogLevel) *Logoped {
+func CreateLogoped(dispatcher IDispatcher, logLevel ILogLevel) *Logoped {
 
 	return &Logoped{
-		logLevel: logLevel,
+		dispatcher: dispatcher,
+		logLevel:   logLevel,
 	}
 }
 
-// func (l Logoped) CreateMessage(bytes []byte) *Report {
-// 	//...
-// }
+func (l Logoped) Log(report IReport) {
 
-// func (l Logoped) Info(bytes []byte) {
+	l.dispatcher.Dispatch(report)
+}
 
-// 	if l.logLevel.Weight() < LogLevelInfo.Weight() {
-// 		return
-// 	}
+func (l Logoped) Info(bytes []byte) {
 
-// 	l.CreateMessage(bytes)
-// }
+	if l.logLevel.Weight() < LogLevelInfo.Weight() {
+		return
+	}
+
+	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelInfo, bytes, []byte{}))
+}
