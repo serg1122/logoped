@@ -12,11 +12,13 @@ var l1 = []byte{}
 var l2 = []byte{}
 var l3 = []byte{}
 
+var l3message = []byte("все плохо")
+
 type WriterToL1 struct {
 	io.Writer
 }
 
-func (w WriterToL1) Wtite(bytes []byte) (int, error) {
+func (w WriterToL1) Write(bytes []byte) (int, error) {
 
 	l1 = bytes
 
@@ -69,7 +71,7 @@ type Formatter3 struct {
 
 func (f Formatter3) Format(report IReport) []byte {
 
-	return []byte("все плохо")
+	return l3message
 }
 
 func Test_CreateLogoped(t *testing.T) {
@@ -85,6 +87,10 @@ func Test_CreateLogoped(t *testing.T) {
 }
 
 func Test_Usage(t *testing.T) {
+
+	l1 = []byte{}
+	l2 = []byte{}
+	l3 = []byte{}
 
 	formatter1 := &Formatter1{}
 	formatter2 := &Formatter2{}
@@ -125,11 +131,11 @@ func Test_Usage(t *testing.T) {
 
 	report := logoped.dispatcher.CreateReport(LogLevelWarn, message, []byte{})
 
-	// excepted1 := formatter1.Format(message)
-	excepted2 := formatter2.Format(report)
-	excepted3 := formatter3.Format(report)
+	expected1 := formatter1.Format(report)
+	expected2 := formatter2.Format(report)
+	expected3 := []byte{}
 
-	assert.Equal(t, "", string(s1))
-	assert.Equal(t, string(excepted2), string(s2))
-	assert.Equal(t, string(excepted3), string(s3))
+	assert.Equal(t, expected1, l1)
+	assert.Equal(t, expected2, l2)
+	assert.Equal(t, expected3, l3)
 }

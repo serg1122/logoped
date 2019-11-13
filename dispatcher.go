@@ -32,9 +32,7 @@ func (d DefaultDispatcher) Dispatch(report IReport) {
 
 	for _, acceptor := range d.acceptors {
 
-		rHeader := report.GetHeader()
-
-		if rHeader.GetLogLevel().Weight() >= acceptor.GetLogLevel().Weight() {
+		if report.GetHeader().GetLogLevel().Weight() >= acceptor.GetLogLevel().Weight() {
 
 			bytes := acceptor.GetFormatter().Format(report)
 
