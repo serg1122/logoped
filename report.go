@@ -6,27 +6,27 @@ type IReport interface {
 	GetMessage() []byte
 }
 
-type DefaultReport struct {
+type Report struct {
 	IReport
 
 	header  IHeader
 	message []byte
 }
 
-func CreateDefaultReport(header IHeader, message []byte) *DefaultReport {
+func CreateReport(header IHeader, message []byte) *Report {
 
-	return &DefaultReport{
+	return &Report{
 		header:  header,
 		message: message,
 	}
 }
 
-func (report DefaultReport) GetHeader() IHeader {
+func (report Report) GetHeader() IHeader {
 
 	return report.header
 }
 
-func (report DefaultReport) GetMessage() []byte {
+func (report Report) GetMessage() []byte {
 
 	return report.message
 }

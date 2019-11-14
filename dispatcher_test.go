@@ -48,28 +48,28 @@ func (w WriterToS3) Write(bytes []byte) (int, error) {
 }
 
 // Tests
-func Test_CreateDefaultDispatcher(t *testing.T) {
+func Test_CreateDispatcher(t *testing.T) {
 
-	dispatcher := CreateDefaultDispatcher([]IAcceptor{CreateAcceptor(CreateDefaultFormatter(), LogLevelInfo, []io.Writer{os.Stderr})})
+	dispatcher := CreateDispatcher([]IAcceptor{CreateAcceptor(CreateFormatter(), LogLevelInfo, []io.Writer{os.Stderr})})
 
-	assert.IsType(t, &DefaultDispatcher{}, dispatcher)
+	assert.IsType(t, &Dispatcher{}, dispatcher)
 }
 
 func Test_CreateReport(t *testing.T) {
 
-	dispatcher := CreateDefaultDispatcher([]IAcceptor{CreateAcceptor(CreateDefaultFormatter(), LogLevelInfo, []io.Writer{os.Stderr})})
+	dispatcher := CreateDispatcher([]IAcceptor{CreateAcceptor(CreateFormatter(), LogLevelInfo, []io.Writer{os.Stderr})})
 
 	report := dispatcher.CreateReport(LogLevelWarn, []byte{})
 
-	assert.IsType(t, &DefaultReport{}, report)
+	assert.IsType(t, &Report{}, report)
 }
 
 func Test_Dispatch(t *testing.T) {
 
-	dispatcher := CreateDefaultDispatcher(
+	dispatcher := CreateDispatcher(
 		[]IAcceptor{
-			CreateAcceptor(CreateDefaultFormatter(), LogLevelInfo, []io.Writer{&WriterToS1{}, &WriterToS2{}}),
-			CreateAcceptor(CreateDefaultFormatter(), LogLevelInfo, []io.Writer{&WriterToS3{}}),
+			CreateAcceptor(CreateFormatter(), LogLevelInfo, []io.Writer{&WriterToS1{}, &WriterToS2{}}),
+			CreateAcceptor(CreateFormatter(), LogLevelInfo, []io.Writer{&WriterToS3{}}),
 		},
 	)
 
@@ -77,7 +77,7 @@ func Test_Dispatch(t *testing.T) {
 
 	dispatcher.Dispatch(report)
 
-	expected := CreateDefaultFormatter().Format(report)
+	expected := CreateFormatter().Format(report)
 	assert.Equal(t, expected, s1)
 	assert.Equal(t, expected, s2)
 	assert.Equal(t, expected, s3)

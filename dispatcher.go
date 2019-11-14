@@ -10,23 +10,23 @@ type IDispatcher interface {
 	Dispatch(IReport)
 }
 
-type DefaultDispatcher struct {
+type Dispatcher struct {
 	acceptors []IAcceptor
 }
 
-func CreateDefaultDispatcher(acceptors []IAcceptor) *DefaultDispatcher {
+func CreateDispatcher(acceptors []IAcceptor) *Dispatcher {
 
-	return &DefaultDispatcher{
+	return &Dispatcher{
 		acceptors: acceptors,
 	}
 }
 
-func (d DefaultDispatcher) CreateReport(loglevel ILogLevel, bytes []byte) IReport {
+func (d Dispatcher) CreateReport(loglevel ILogLevel, bytes []byte) IReport {
 
-	return CreateDefaultReport(CreateHeader(time.Now().UTC(), loglevel), bytes)
+	return CreateReport(CreateHeader(time.Now().UTC(), loglevel), bytes)
 }
 
-func (d DefaultDispatcher) Dispatch(report IReport) {
+func (d Dispatcher) Dispatch(report IReport) {
 
 	var wg sync.WaitGroup
 

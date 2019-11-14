@@ -77,8 +77,8 @@ func (f Formatter3) Format(report IReport) []byte {
 func Test_CreateLogoped(t *testing.T) {
 
 	logoped := CreateLogoped(
-		CreateDefaultDispatcher(
-			[]IAcceptor{CreateAcceptor(CreateDefaultFormatter(), LogLevelInfo, []io.Writer{os.Stderr})},
+		CreateDispatcher(
+			[]IAcceptor{CreateAcceptor(CreateFormatter(), LogLevelInfo, []io.Writer{os.Stderr})},
 		),
 		LogLevelInfo,
 	)
@@ -97,7 +97,7 @@ func Test_Usage(t *testing.T) {
 	formatter3 := &Formatter3{}
 
 	logoped := CreateLogoped(
-		CreateDefaultDispatcher(
+		CreateDispatcher(
 			[]IAcceptor{
 				CreateAcceptor(
 					formatter1,

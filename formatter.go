@@ -4,21 +4,21 @@ type IFormatter interface {
 	Format(IReport) []byte
 }
 
-type DefaultFormatter struct {
+type Formatter struct {
 	delimiter       []byte
 	timepointFormat string
 }
 
-func CreateDefaultFormatter() *DefaultFormatter {
+func CreateFormatter() *Formatter {
 
-	return &DefaultFormatter{
+	return &Formatter{
 
 		delimiter:       []byte("\n"),
 		timepointFormat: "2006-01-02 15:04:05.999999",
 	}
 }
 
-func (formatter DefaultFormatter) Format(report IReport) []byte {
+func (formatter Formatter) Format(report IReport) []byte {
 
 	header := report.GetHeader()
 
