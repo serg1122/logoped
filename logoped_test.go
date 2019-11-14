@@ -117,7 +117,7 @@ func Test_Usage(t *testing.T) {
 					formatter3,
 					LogLevelError,
 					[]io.Writer{
-						&WriterToL2{},
+						&WriterToL3{},
 					},
 				),
 			},
