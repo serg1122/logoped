@@ -27,10 +27,5 @@ func (formatter DefaultFormatter) Format(report IReport) []byte {
 	formatted = append(formatted, formatter.delimiter...)
 	formatted = append(formatted, report.GetMessage()...)
 
-	if len(report.GetPostMessage()) > 0 {
-		formatted = append(formatted, formatter.delimiter...)
-		formatted = append(formatted, report.GetPostMessage()...)
-	}
-
 	return formatted
 }

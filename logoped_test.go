@@ -129,7 +129,7 @@ func Test_Usage(t *testing.T) {
 
 	logoped.Warn(message)
 
-	report := logoped.dispatcher.CreateReport(LogLevelWarn, message, []byte{})
+	report := logoped.dispatcher.CreateReport(LogLevelWarn, message)
 
 	expected1 := formatter1.Format(report)
 	expected2 := formatter2.Format(report)

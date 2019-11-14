@@ -6,7 +6,7 @@ import (
 )
 
 type IDispatcher interface {
-	CreateReport(ILogLevel, []byte, []byte) IReport
+	CreateReport(ILogLevel, []byte) IReport
 	Dispatch(IReport)
 }
 
@@ -21,9 +21,9 @@ func CreateDefaultDispatcher(acceptors []IAcceptor) *DefaultDispatcher {
 	}
 }
 
-func (d DefaultDispatcher) CreateReport(loglevel ILogLevel, bytes []byte, postmessage []byte) IReport {
+func (d DefaultDispatcher) CreateReport(loglevel ILogLevel, bytes []byte) IReport {
 
-	return CreateDefaultReport(CreateHeader(time.Now().UTC(), loglevel), bytes, postmessage)
+	return CreateDefaultReport(CreateHeader(time.Now().UTC(), loglevel), bytes)
 }
 
 func (d DefaultDispatcher) Dispatch(report IReport) {

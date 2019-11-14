@@ -59,7 +59,7 @@ func Test_CreateReport(t *testing.T) {
 
 	dispatcher := CreateDefaultDispatcher([]IAcceptor{CreateAcceptor(CreateDefaultFormatter(), LogLevelInfo, []io.Writer{os.Stderr})})
 
-	report := dispatcher.CreateReport(LogLevelWarn, []byte{}, []byte{})
+	report := dispatcher.CreateReport(LogLevelWarn, []byte{})
 
 	assert.IsType(t, &DefaultReport{}, report)
 }
@@ -73,7 +73,7 @@ func Test_Dispatch(t *testing.T) {
 		},
 	)
 
-	report := dispatcher.CreateReport(LogLevelWarn, []byte("Эту фразу нужно првоерить"), []byte("Эту фразу тоже нужно првоерить"))
+	report := dispatcher.CreateReport(LogLevelWarn, []byte("Эту фразу нужно првоерить"))
 
 	dispatcher.Dispatch(report)
 

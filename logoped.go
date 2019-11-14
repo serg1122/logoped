@@ -1,7 +1,5 @@
 package logoped
 
-import "runtime/debug"
-
 var LogLevelInfo = CreateLogLevel("INFO", 100)
 var LogLevelWarn = CreateLogLevel("WARN", 200)
 var LogLevelError = CreateLogLevel("ERROR", 300)
@@ -31,7 +29,7 @@ func (l Logoped) Info(bytes []byte) {
 		return
 	}
 
-	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelInfo, bytes, []byte{}))
+	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelInfo, bytes))
 }
 
 func (l Logoped) Warn(bytes []byte) {
@@ -40,7 +38,7 @@ func (l Logoped) Warn(bytes []byte) {
 		return
 	}
 
-	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelWarn, bytes, []byte{}))
+	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelWarn, bytes))
 }
 
 func (l Logoped) Error(bytes []byte) {
@@ -49,7 +47,7 @@ func (l Logoped) Error(bytes []byte) {
 		return
 	}
 
-	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelError, bytes, debug.Stack()))
+	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelError, bytes))
 }
 
 func (l Logoped) Fatal(bytes []byte) {
@@ -58,5 +56,5 @@ func (l Logoped) Fatal(bytes []byte) {
 		return
 	}
 
-	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelFatal, bytes, debug.Stack()))
+	l.dispatcher.Dispatch(l.dispatcher.CreateReport(LogLevelFatal, bytes))
 }
