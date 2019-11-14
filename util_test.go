@@ -8,8 +8,8 @@ import (
 
 func Test_CreateRandomString(t *testing.T) {
 
-	string, err := CreateRandomString([]rune("A"), 3)
+	str, err := CreateRandomString([]rune("A"), 3)
 
-	assert.Equal(t, `AAA`, string)
+	assert.Equal(t, `AAA`, str)
 	assert.Nil(t, err)
 }
